@@ -19,7 +19,7 @@ class test_unit(Command):
     def run(self):
         import tests
 
-        count, failures = tests.unit(self.to_run, self.quick)
+        count, failures = tests.unit(self.to_run)
         if failures:
             print("%d out of %d failed" % (failures, count))
             raise SystemExit("Test failures are listed above.")

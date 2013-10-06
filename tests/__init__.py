@@ -97,7 +97,7 @@ class Runner(object):
         return bool(result.failures + result.errors)
 
 
-def unit(run=[], quick=False):
+def unit(run=[]):
 
     runner = Runner()
     failures = 0
