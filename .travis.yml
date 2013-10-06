@@ -1,4 +1,3 @@
-# first tests will be on Darwin
 language: objective-c
 notifications:
   email:
