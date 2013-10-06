@@ -29,6 +29,12 @@ class test_system(Command):
     description = 'run automated system test'
     user_options = [('NONE',None,"ugg none")]
     
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+    
     def run(self):
         print sp.check_output(['python',
                                'bin/install-puppet.py']
