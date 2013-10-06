@@ -1,3 +1,5 @@
+import subprocess as sp
+import sys
 from distutils.core import setup, Command
 
 
@@ -9,7 +11,6 @@ class test_unit(Command):
 
     def initialize_options(self):
         self.to_run = []
-        self.quick = False
 
     def finalize_options(self):
         if self.to_run:
@@ -23,10 +24,22 @@ class test_unit(Command):
             print("%d out of %d failed" % (failures, count))
             raise SystemExit("Test failures are listed above.")
 
+class test_system(Command):
+    
+    def run(self):
+        print sp.check_output(['python',
+                               'bin/install-puppet.py']
+                              ).decode('utf-8').strip()
+        vout = sp.check_output(['puppet','--version'])
+        if '3.3' not in vout:
+            print 'Puppet install failed',vout
+            raise SystemExit("Test failures are listed above.")
+            
 if __name__ == "__main__":
 
     cmd_classes = {
         "test_unit": test_unit,
+        "test_system": test_system
     }
 
     setup(cmdclass=cmd_classes,
