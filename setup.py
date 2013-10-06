@@ -38,11 +38,11 @@ class test_system(Command):
     def run(self):
         tout = None
         try:
-            tout = sp.check_output(['python',
-                                    'bin/install-puppet.py']
-                                   ).decode('utf-8').strip()
+            (tout,terr) = sp.check_output(['python',
+                                           'bin/install-puppet.py']
+                                          ).decode('utf-8').strip()
         finally:
-            print tout
+            print tout,terr
             
         vout = sp.check_output(['puppet','--version'])
         if '3.3' not in vout:
