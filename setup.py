@@ -27,7 +27,7 @@ class test_unit(Command):
 class test_system(Command):
     
     description = 'run automated system test'
-    user_options = None
+    user_options = [('NONE',None,"ugg none")]
     
     def run(self):
         print sp.check_output(['python',
