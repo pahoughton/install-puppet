@@ -4,7 +4,7 @@ from distutils.core import setup, Command
 
 
 class test_unit(Command):
-    description = "run automated tests"
+    description = "run automated unit tests"
     user_options = [
         ("to-run=", None, "list of tests to run (default all)"),
     ]
@@ -25,6 +25,9 @@ class test_unit(Command):
             raise SystemExit("Test failures are listed above.")
 
 class test_system(Command):
+    
+    description = 'run automated system test'
+    user_options = None
     
     def run(self):
         print sp.check_output(['python',
