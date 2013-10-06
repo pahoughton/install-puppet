@@ -1,0 +1,14 @@
+# first tests will be on Darwin
+language: objective-c
+notifications:
+  email:
+    - paul4hough@gmail.com
+
+before_script:
+  - echo -e "Host heroku.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - python --version
+
+
+
+script: "python setup.py test_unit"
