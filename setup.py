@@ -36,9 +36,14 @@ class test_system(Command):
         pass
     
     def run(self):
-        print sp.check_output(['python',
-                               'bin/install-puppet.py']
-                              ).decode('utf-8').strip()
+        tout = None
+        try:
+            tout = sp.check_output(['python',
+                                    'bin/install-puppet.py']
+                                   ).decode('utf-8').strip()
+        finally:
+            print tout
+            
         vout = sp.check_output(['puppet','--version'])
         if '3.3' not in vout:
             print 'Puppet install failed',vout
