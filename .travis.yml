@@ -15,6 +15,7 @@ script:
   - "python setup.py test_unit"
   - "python setup.py test_system"
   - "bash quicktest.bash"
+  - "python setup.py test_system"
 
 after_script:
-  - "facter"
+  - find build -type f -ls
