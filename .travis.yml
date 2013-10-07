@@ -13,4 +13,4 @@ before_script:
 
 script:
   - "python setup.py test_unit"
-  - "python setup.py test_system"
+  - "bash quicktest.bash"

@@ -1,5 +1,6 @@
 import subprocess as sp
 import os
+import sys
 from distutils.core import setup, Command
 
 
@@ -37,17 +38,23 @@ class test_system(Command):
     
     def run(self):
         tout = None
+        terr = None
         os.environ['PATH'] = '/opt/local/bin:/usr/bin:/bin'
         del os.environ['GEM_HOME']
         del os.environ['GEM_PATH']
+        proc = None
         try:
-            tout = sp.check_output(['sudo',
-                                    'python',
-                                    'bin/install-puppet.py']
-                                   ).decode('utf-8').strip()
+            proc = sp.Popen(['sudo',
+                             'python',
+                             'bin/install-puppet.py'],
+                            stdout=sp.PIPE,stderr=sp.PIPE
+                            ).decode('utf-8').strip()
+            tout,terr = proc.communicate()
         finally:
-            print tout
-            
+            print repr(tout),repr(terr)
+            if not proc or proc.returncode != 0:
+                print "Install failed:",proc.returncode
+                sys.exit(proc.returncode)
         vout = sp.check_output(['puppet','--version'])
         if '3.3' not in vout:
             print 'Puppet install failed',vout

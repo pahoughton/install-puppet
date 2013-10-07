@@ -1,12 +1,14 @@
 ## install-puppet
 
-Darwin: [![Test Build Status](https://travis-ci.org/pahoughton/install-puppet.png?branch=master)](https://travis-ci.org/pahoughton/install-puppet)
+Master: [![Test Build Status](https://travis-ci.org/pahoughton/install-puppet.png?branch=master)](https://travis-ci.org/pahoughton/install-puppet)
+Devel: [![Test Build Status](https://travis-ci.org/pahoughton/install-puppet.png?branch=devel)](https://travis-ci.org/pahoughton/install-puppet)
 
 Simple python script to install puppet tested on RedHat, Debian and Darwin
 
 ## Usage
 
-python bin/install-puppet.py
+    git clone git@github:pahoughton/install-python
+    python insall-python/bin/install-puppet.py
 
 ## Dependencies
 
