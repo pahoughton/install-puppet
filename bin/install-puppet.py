@@ -15,7 +15,7 @@ def which(filename):
     for loc in locs:
         fn = os.path.join(loc, filename)
         if os.path.isfile(fn) and os.access(fn, os.X_OK):
-            print 'found:',fn
+            #print 'found:',fn
             return fn
     return None
 

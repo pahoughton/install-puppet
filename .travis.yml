@@ -13,8 +13,8 @@ before_script:
 
 script:
   - "python setup.py test_unit"
-  - "bash quicktest.bash"
   - "python setup.py test_system"
+  - "bash quicktest.bash"
 
 after_script:
   - "facter"
