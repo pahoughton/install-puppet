@@ -5,11 +5,11 @@ import sys
 import platform as pl
 from distutils.core import setup, Command
 
-os.environ['PATH'] = '/opt/local/bin:/usr/bin:/bin'
-if os.environ.get('GEM_HOME'):
-    del os.environ['GEM_HOME']
-if os.environ.get('GETM_PATH'):
-    del os.environ['GEM_PATH']
+# os.environ['PATH'] = '/opt/local/bin:/usr/bin:/bin'
+# if os.environ.get('GEM_HOME'):
+#     del os.environ['GEM_HOME']
+# if os.environ.get('GETM_PATH'):
+#     del os.environ['GEM_PATH']
 
 
 def try_command(cmd,expout=None):
