@@ -13,12 +13,12 @@ my_path = ['/opt/local/bin',
            '/usr/local/bin',
            '/usr/sbin',
            '/sbin']
-print('Changing Path from:')
-for pdir in os.environ['PATH'].split(':'):
-    print '  '+pdir
-print('to:')
-for pdir in my_path:
-    print '  '+pdir
+#print('Changing Path from:')
+#for pdir in os.environ['PATH'].split(':'):
+#    print '  '+pdir
+#print('to:')
+#for pdir in my_path:
+#    print '  '+pdir
     
 os.environ['PATH'] = ':'.join(my_path)
 print "NEW:",os.environ['PATH']
