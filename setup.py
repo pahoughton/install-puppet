@@ -16,8 +16,9 @@ def try_command(cmd):
     try:
         print "run:",' '.join(cmd)
         proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE
-                        ).decode('utf-8').strip()
+                        )
         cout,cerr = proc.communicate()
+        cout = cout.decode('utf-8').strip()
         cstatus = proc.returncode
     except Exception,e:
         print repr(e)
