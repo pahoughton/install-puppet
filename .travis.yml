@@ -14,3 +14,7 @@ before_script:
 script:
   - "python setup.py test_unit"
   - "bash quicktest.bash"
+  - "python setup.py test_system"
+
+after_script:
+  - "facter"
