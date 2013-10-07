@@ -1,4 +1,5 @@
 #/bin/bash
+set -x
 unset GEM_HOME
 unset GEM_PATH
 PATH=/opt/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin
