@@ -37,8 +37,10 @@ class test_system(Command):
     
     def run(self):
         tout = None
+        os.environ['PATH'] = '/opt/local/bin:/usr/bin:/bin'
+        del os.environ['GEM_HOME']
+        del os.environ['GEM_PATH']
         try:
-            os.environ['PATH'] = '/opt/local/bin:/usr/bin:/bin'
             tout = sp.check_output(['sudo',
                                     'python',
                                     'bin/install-puppet.py']
@@ -46,10 +48,10 @@ class test_system(Command):
         finally:
             print tout
             
-#         vout = sp.check_output(['puppet','--version'])
-#         if '3.3' not in vout:
-#             print 'Puppet install failed',vout
-#             raise SystemExit("Test failures are listed above.")
+        vout = sp.check_output(['puppet','--version'])
+        if '3.3' not in vout:
+            print 'Puppet install failed',vout
+            raise SystemExit("Test failures are listed above.")
             
 if __name__ == "__main__":
 
