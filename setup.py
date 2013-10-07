@@ -1,8 +1,34 @@
 import subprocess as sp
 import os
 import sys
+import platform as pl
 from distutils.core import setup, Command
 
+os.environ['PATH'] = '/opt/local/bin:/usr/bin:/bin'
+del os.environ['GEM_HOME']
+del os.environ['GEM_PATH']
+
+
+def try_command(cmd):
+    cout = None
+    cerr = None
+    cstatus = -99
+    try:
+        print "run:",' '.join(cmd)
+        proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE
+                        ).decode('utf-8').strip()
+        cout,cerr = proc.communicate()
+        cstatus = proc.returncode
+    except Exception,e:
+        print repr(e)
+        if cstatus == None:
+            cstatus = -99
+    finally:
+        print repr(cout)+'\n'+repr(cerr)
+        if cstatus != 0:
+            print 'FAILED:',cstatus
+    
+    return cstatus, cout, cerr
 
 class test_unit(Command):
     description = "run automated unit tests"
@@ -37,28 +63,29 @@ class test_system(Command):
         pass
     
     def run(self):
-        tout = None
-        terr = None
-        os.environ['PATH'] = '/opt/local/bin:/usr/bin:/bin'
-        del os.environ['GEM_HOME']
-        del os.environ['GEM_PATH']
-        proc = None
-        try:
-            proc = sp.Popen(['sudo',
+        tstat = try_command(['sudo',
                              'python',
-                             'bin/install-puppet.py'],
-                            stdout=sp.PIPE,stderr=sp.PIPE
-                            ).decode('utf-8').strip()
-            tout,terr = proc.communicate()
-        finally:
-            print repr(tout),repr(terr)
-            if not proc or proc.returncode != 0:
-                print "Install failed:",proc.returncode
-                sys.exit(proc.returncode)
-        vout = sp.check_output(['puppet','--version'])
-        if '3.3' not in vout:
-            print 'Puppet install failed',vout
+                             'bin/install-puppet.py'])
+        if tstat != 0:
+            sys.exit(tstat)
+        tstat, tout = try_command(['puppet','--version'])
+        
+        if '3.3' not in tout:
+            print 'Puppet install failed',tout
             raise SystemExit("Test failures are listed above.")
+        
+        tstat, tout = try_command(['puppet',
+                                   'apply',
+                                   '-e',
+                                   "notify { 'Hi from puppet' : }",])
+        if tstat != 0:
+            sys.exit(tstat)
+        else: 
+            tsys = pl.system()
+            (tosname,tosver,tosvname) = pl.dist()
+            msg = 'PASS: System Test install puppet: {fs} {fo) {fv} {fvn}'
+            print msg.format(fs=tsys,fo=tosname,fv=tosver,fvn=tosvname)
+            
             
 if __name__ == "__main__":
 

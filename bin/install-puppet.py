@@ -167,8 +167,7 @@ def main():
     else:
         sysdo = real_sysdo
         sysname = platform.system()
-        if sysname == 'Linux':
-            (osname,osver,osvername) = platform.dist() 
+        (osname,osver,osvername) = platform.dist() 
         
         if which('puppet'):
             sout = sp.check_output(['puppet','--version']).decode('utf-8')
