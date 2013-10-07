@@ -1,5 +1,5 @@
 ## install-puppet
-
+Last: [![Test Build Status](https://travis-ci.org/pahoughton/install-puppet.png)](https://travis-ci.org/pahoughton/install-puppet)
 Master: [![Test Build Status](https://travis-ci.org/pahoughton/install-puppet.png?branch=master)](https://travis-ci.org/pahoughton/install-puppet)
 Devel: [![Test Build Status](https://travis-ci.org/pahoughton/install-puppet.png?branch=devel)](https://travis-ci.org/pahoughton/install-puppet)
 
