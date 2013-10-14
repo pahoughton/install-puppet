@@ -152,20 +152,6 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         gemfile.write( "source 'https://rubygems.org'\ngem 'puppet'\n")
         gemfile.close()
         os.remove(gemfile.name)
-        os.remove(gemfile.name+'.lock')
-        # sysdo(['bundle','install'])
-        # wasdir = os.getcwd()
-        # os.chdir(os.path.dirname(sys.argv[0]))
-        # if re.match(r'/bin$', os.getcwd()):
-        #     os.chdir(re.sub( r'(.*)/bin','\1',os.getcwd() ))
-        # else:
-        #     # hope for the best
-        #     os.chdir('..')
-
-        # print 'CWD:',os.getcwd()
-        # sysdo(['cat','Gemfile'])
-        # sysdo(['bundle','install'])
-        # os.chdir(wasdir)
         print 'puppet gem installed.'
 
 def main():
