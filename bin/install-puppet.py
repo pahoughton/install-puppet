@@ -148,15 +148,18 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
 
     # Travis needs gems installed with bundle
     if os.environ.get('TRAVIS'):
-        gemfile = tempfile.NamedTemporaryFile(mode='w',delete=False)
-        gemfile.write( "gem 'puppet'\n")
-        gemfile.close()
-        sysdo(['cat',gemfile.name])
-        sysdo(['bundle','install','--gemfile='+gemfile.name])
+        # gemfile = tempfile.NamedTemporaryFile(mode='w',delete=False)
+        # gemfile.write( "gem 'puppet'\n")
+        # gemfile.close()
+        wasdir = os.getcwd()
+        mydir = os.path.dirname(sys.arbv[0])
+        if 'bin/' in mydir:
+            mydir = mydir.replace('bin/','')
+        os.chdir(mydir)
+        sysdo(['cat','Gemfile'])
+        sysdo(['bundle','install'])
+        os.chdir(wasdir)
         print 'puppet gem installed.'
-        if os.path.isfile(gemfile.name+'.lock'):
-              os.remove(gemfile.name+'.lock')
-        os.remove(gemfile.name)
 
 def main():
     '''main - script entry point'''
