@@ -8,6 +8,7 @@ before_script:
   - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - type python
   - python --version
+  - bundle help
   - env
 
 
@@ -17,4 +18,6 @@ script:
   - "python setup.py test_system"
 
 after_script:
-  - find build -type f -ls
+  - which puppet
+  - puppet --version
+  - find . -type f -ls
