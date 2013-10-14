@@ -151,6 +151,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         gemfile = tempfile.NamedTemporaryFile(mode='w',delete=False)
         gemfile.write( "source 'https://rubygems.org'\ngem 'puppet'\n")
         gemfile.close()
+        sysdo(['bundle','install','--gemfile='+gemfile.name])
         os.remove(gemfile.name)
         sysdo(['gem','install','puppet'])
         print 'puppet gem installed.'
