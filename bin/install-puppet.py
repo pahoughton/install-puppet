@@ -154,7 +154,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         wasdir = os.getcwd()
         mydir = os.path.dirname(sys.argv[0])
         if 'bin/' in mydir:
-            mydir = mydir.replace('bin/','')
+            mydir = mydir.replace('/bin','')
         os.chdir(mydir)
         print 'CWD:',os.getcwd()
         sysdo(['cat','Gemfile'])
