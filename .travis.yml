@@ -20,6 +20,7 @@ script:
   - "python setup.py test_system"
 
 after_script:
+  - bundle install
   - which puppet
   - puppet --version
   - find . -type f -ls
