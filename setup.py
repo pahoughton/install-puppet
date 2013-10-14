@@ -5,28 +5,28 @@ import sys
 import platform as pl
 from distutils.core import setup, Command
 
-my_path = ['/opt/local/bin',
-           '/usr/local/bin',
-           '/usr/bin',
-           '/bin',
-           '/opt/local/sbin',
-           '/usr/local/bin',
-           '/usr/sbin',
-           '/sbin']
-#print('Changing Path from:')
-#for pdir in os.environ['PATH'].split(':'):
-#    print '  '+pdir
-#print('to:')
-#for pdir in my_path:
-#    print '  '+pdir
-    
-os.environ['PATH'] = ':'.join(my_path)
-print "NEW:",os.environ['PATH']
-if os.environ.get('GEM_HOME'):
-    del os.environ['GEM_HOME']
-if os.environ.get('GETM_PATH'):
-    del os.environ['GEM_PATH']
+if False:
+    my_path = ['/opt/local/bin',
+               '/usr/local/bin',
+               '/usr/bin',
+               '/bin',
+               '/opt/local/sbin',
+               '/usr/local/bin',
+               '/usr/sbin',
+               '/sbin']
+    #print('Changing Path from:')
+    #for pdir in os.environ['PATH'].split(':'):
+    #    print '  '+pdir
+    #print('to:')
+    #for pdir in my_path:
+    #    print '  '+pdir    
+    os.environ['PATH'] = ':'.join(my_path)
+    print "NEW:",os.environ['PATH']
+    if os.environ.get('GEM_HOME'):
+        del os.environ['GEM_HOME']
 
+    if os.environ.get('GETM_PATH'):
+        del os.environ['GEM_PATH']
 
 def try_command(cmd,expout=None):
     pout = None
@@ -50,7 +50,7 @@ def try_command(cmd,expout=None):
         msg = "FAILED: {fs} - cmd: '{fc}'".format(fs=pstatus,
                                                   fc=' '.join(cmd))
         raise SystemExit(msg)
-    
+
     if expout and expout not in pout:
         msg = "FAILED: {fs} - exp: '{fe}' in '{fo}".format(fs=pstatus,
                                                            fe=expout,
@@ -80,16 +80,16 @@ class test_unit(Command):
             raise SystemExit("Test failures are listed above.")
 
 class test_system(Command):
-    
+
     description = 'run automated system test'
     user_options = [('NONE',None,"ugg none")]
-    
+
     def initialize_options(self):
         pass
 
     def finalize_options(self):
         pass
-    
+
     def run(self):
         try_command(['sudo','pwd'])
         try_command(['sudo',
@@ -107,20 +107,20 @@ class test_system(Command):
 
     def trun(self):
         print 'Big Fun'
-        
+
         tstat = try_command(['sudo',
                              'python',
                              'bin/install-puppet.py'])
         if tstat != 0:
             print 'FAIL:',tstat
             sys.exit(tstat)
-            
-        #tstat, tout = try_command(['puppet','--version'])        
+
+        #tstat, tout = try_command(['puppet','--version'])
         if '3.3' not in " 3.3 ":
             print 'Puppet install failed',tout
             raise SystemExit("Test failures are listed above.")
-        
-            
+
+
 if __name__ == "__main__":
 
     cmd_classes = {

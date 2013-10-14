@@ -10,7 +10,7 @@ import subprocess as sp
 import re
 
 def which(filename):
-    """docstring for which"""
+    """return the full path to an executable"""
     locs = os.environ.get("PATH").split(os.pathsep)
     for loc in locs:
         fn = os.path.join(loc, filename)
@@ -143,6 +143,15 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
     else:
         print 'Unsupported platform:',sysname
         sys.exit( 1 )
+
+    # Travis needs gems installed with bundle
+    if os.environ.get('TRAVIS'):
+        gemfile = tempfile.NamedTemporaryFile(mode='w',delete=False)
+        gemfile.write( "gem 'puppet'\n")
+        gemfile.close()
+        sysdo(['bundle','install','--gemfile='+gemfile.name])
+        os.remove(gemfile.name+'.lock')
+        os.remove(gemfile.name)
 
 def main():
     '''main - script entry point'''
