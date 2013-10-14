@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 '''install-puppet.py - install puppet
 
+ping travis
 '''
 import os
 import sys
