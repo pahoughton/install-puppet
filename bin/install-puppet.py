@@ -151,7 +151,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         gemfile = tempfile.NamedTemporaryFile(mode='w',delete=False)
         gemfile.write( "gem 'puppet'\n")
         gemfile.close()
-        sysdo(['cat',gemfile.name)
+        sysdo(['cat',gemfile.name])
         sysdo(['bundle','install','--gemfile='+gemfile.name])
         print 'puppet gem installed.'
         if os.path.isfile(gemfile.name+'.lock'):
