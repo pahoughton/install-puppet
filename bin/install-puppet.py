@@ -152,12 +152,12 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         # gemfile.write( "gem 'puppet'\n")
         # gemfile.close()
         wasdir = os.getcwd()
-        mydir = os.path.dirname(sys.argv[0])
-        if '/bin' in mydir:
-            mydir = mydir.replace('/bin','')
-            print 'MYDIR:',mydir
+        os.chdir(os.path.dirname(sys.argv[0]))
+        if re.match(r'/bin$', os.getcwd()):
+            os.chdir(re.sub( r'(.*)/bin','\1',os.getcwd() ))
         else:
-            print 'NOT bin in mydir',mydir
+            # hope for the best
+            os.chdir('..')
             
         os.chdir(mydir)
         print 'CWD:',os.getcwd()
