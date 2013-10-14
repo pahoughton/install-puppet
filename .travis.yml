@@ -1,4 +1,4 @@
-language: python
+language: c
 notifications:
   email:
     - paul4hough@gmail.com
