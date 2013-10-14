@@ -8,6 +8,7 @@ import platform
 import urllib
 import subprocess as sp
 import re
+import tempfile
 
 def which(filename):
     """return the full path to an executable"""
