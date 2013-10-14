@@ -161,7 +161,9 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
             os.chdir(re.sub( r'(.*)/bin','\1',os.getcwd() ))
         else:
             # hope for the best
-            os.chdir('..') 
+            os.chdir('..')
+        print 'CWD:',os.getcwd()
+        sysdo(['cat','Gemfile'])
         sysdo(['bundle','install'])
         os.chdir(wasdir)
         sysdo(['gem','install','puppet'])
