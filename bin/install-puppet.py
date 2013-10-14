@@ -149,8 +149,9 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
     # Travis needs gems installed with bundle
     if os.environ.get('TRAVIS'):
         gemfile = tempfile.NamedTemporaryFile(mode='w',delete=False)
-        gemfile.write( "source 'https://rubygems.org'\ngem 'puppet'\n")
+        gemfile.write("source 'https://rubygems.org'\ngem 'puppet'\n")
         gemfile.close()
+        sysdo(['cat',gemfile.name])
         sysdo(['bundle','install','--gemfile='+gemfile.name])
         os.remove(gemfile.name)
         sysdo(['gem','install','puppet'])
