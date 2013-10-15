@@ -92,7 +92,7 @@ class test_system(Command):
         pass
 
     def run(self):
-        try_command(['sudo','pwd'])
+        try_command(['echo','$PATH'])
         try_command(['sudo',
                      'python',
                      'bin/install-puppet.py'])
