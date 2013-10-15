@@ -201,7 +201,8 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         
         gemfile.write("source 'https://rubygems.org'\ngem 'puppet'\n")
         gemfile.close()
-        sysdo(['cat',gemfile.name])
+        os.chmod(gemfile.name, 0664)
+        sysdo(['ls','-l',gemfile.name])
         sysdo(bndl_cmd)
         os.remove(gemfile.name)
 #         wasdir = os.getcwd()
