@@ -36,8 +36,7 @@ def try_command(cmd,expout=None):
     try:
         print "PATH",os.environ['PATH']
         print "setup.py run:",' '.join(cmd)
-        proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE
-                        )
+        proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE,shell=True)
         pout,perr = proc.communicate()
         pout = pout.decode('utf-8').strip()
         pstatus = proc.returncode
