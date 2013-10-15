@@ -13,8 +13,9 @@ before_script:
   - env
 
 script:
-  - "python setup.py test_unit"
-  - "python setup.py test_system"
+  - python setup.py test_unit
+  - sudo env
+  - sudo python setup.py test_system
 
 after_script:
   - bundle install
