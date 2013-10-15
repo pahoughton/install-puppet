@@ -11,6 +11,8 @@ before_script:
   - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - type python
   - python --version
+  - type bundle
+  - bundle show
   - env
 
 

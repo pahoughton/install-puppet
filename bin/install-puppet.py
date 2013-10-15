@@ -163,6 +163,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
             # hope for the best
             os.chdir('..')
         print 'CWD:',os.getcwd()
+        print 'PATH:',os.environ['PATH']
         sysdo(['cat','Gemfile'])
         sysdo(['bundle','list'])
         os.chdir(wasdir)
