@@ -23,15 +23,42 @@ def which(filename):
             return fn
     return None
 
-def real_sysdo(cmd):
+def real_sysdo(cmd,expout=None):
     '''real_sysdo - execute cmd and show output
     '''
-    print 'run:',' '.join(cmd)
-    sout = sp.check_output(cmd).decode('utf-8')
-    if sout:
-        print sout
-    else:
-        print '--NO OUTPUT--'
+    pout = None
+    perr = None
+    pstatus = -99
+    try:
+        print "PATH",os.environ['PATH']
+        print "run:",' '.join(cmd)
+        proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE)
+        pout,perr = proc.communicate()
+        pout = pout.decode('utf-8').strip()
+        pstatus = proc.returncode
+    except Exception,e:
+        print repr(e)
+        if pstatus == None:
+            pstatus = -99
+    finally:
+        if pout:
+            print 'stdout:',pout
+        if perr:
+            print 'stderr:',perr
+        print pout+'\n'+perr
+        if not pout and not perr:
+            print '-- NO OUTPUT --'
+            
+    if pstatus != 0:
+        msg = "FAILED: {fs} - cmd: '{fc}'".format(fs=pstatus,
+                                                  fc=' '.join(cmd))
+        raise SystemExit(msg)
+
+    if expout and expout not in pout:
+        msg = "FAILED: {fs} - exp: '{fe}' in '{fo}".format(fs=pstatus,
+                                                           fe=expout,
+                                                           fo=pout)
+        raise SystemExit(msg)
 
 def unit_test_sysdo(cmd):
     print 'UT:',cmd
@@ -158,20 +185,40 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         # travis-ci requires the bundle gem install of puppet
         # because of the users environment. Otherwise the
         # the puppet command will fail.
+        bndl_cmd = None
         gemfile = tempfile.NamedTemporaryFile(mode='w',delete=False)
-        gemfile.write("source 'https://rubygems.org'\ngem 'puppet'\n")
-        gemfile.close()
-        sysdo(['cat',gemfile.name])
         if os.getuid() == 0:
             # need to install as normal user
             if os.environ.get('SUDO_USER'):
-               sysdo(['su','-','-c',
-                      'bundle install --gemfile='+gemfile.name])
+               bndl_cmd = ['su','-',os.environ['SUDO_USER'],'-c',
+                           'bundle install --gemfile='+gemfile.name]
             else:
+                gemfile.close()
                 os.remove(gemfile.name)
                 raise Exception('SUDO_USER not set, need non root user id')
-            
+        else:
+            bndl_cmd = ['bundle install --gemfile='+gemfile.name]
+        
+        gemfile.write("source 'https://rubygems.org'\ngem 'puppet'\n")
+        gemfile.close()
+        sysdo(['cat',gemfile.name])
+        sysdo(bndl_cmd)
         os.remove(gemfile.name)
+#         wasdir = os.getcwd()
+#         os.chdir(os.path.dirname(sys.argv[0]))
+#         if re.match(r'/bin$', os.getcwd()):
+#             os.chdir(re.sub( r'(.*)/bin','\1',os.getcwd() ))
+#         else:
+#             # hope for the best
+#             os.chdir('..')
+#         print 'CWD:',os.getcwd()
+#         gemfile = open('Gemfile','w')
+#         gemfile.write("source 'https://rubygems.org'\ngem 'puppet'\n")
+#         gemfile.close()
+#         sysdo(['cat','Gemfile'])
+#         sysdo(['bundle','list'])
+#         os.chdir(wasdir)
+#         sysdo(['cat',gemfile.name])
         print 'puppet gem installed for travis.'
 
 def main():
