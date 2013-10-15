@@ -78,6 +78,7 @@ class test_system(Command):
     def run(self):
         print sp.check_output(['env'])
         try_command(['env'])
+        try_command(['sudo','-u',os.environ['SUDO_USER'],'env'])
         try_command(['python',
                      'bin/install-puppet.py'])
         try_command(['puppet','--version'],'3.3')
