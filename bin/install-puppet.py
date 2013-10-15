@@ -162,10 +162,15 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         gemfile.write("source 'https://rubygems.org'\ngem 'puppet'\n")
         gemfile.close()
         sysdo(['cat',gemfile.name])
-        sysdo(['sudo',
-               '-u',os.environ['SUDO_USER'],
-               'bash','-l',
-               '-c','bundle','install','--gemfile='+gemfile.name])
+        if os.getuid() == 0:
+            # need to install as normal user
+            if os.environ.get('SUDO_USER'):
+               sysdo(['su','-','-c',
+                      'bundle install --gemfile='+gemfile.name])
+            else:
+                os.remove(gemfile.name)
+                raise Exception('SUDO_USER not set, need non root user id')
+            
         os.remove(gemfile.name)
         print 'puppet gem installed for travis.'
 
