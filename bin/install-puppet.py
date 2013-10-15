@@ -164,7 +164,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
             os.chdir('..')
         print 'CWD:',os.getcwd()
         sysdo(['cat','Gemfile'])
-        sysdo(['bundle','install'])
+        sysdo(['bundle','list'])
         os.chdir(wasdir)
         sysdo(['gem','install','puppet'])
         print 'puppet gem installed.'
