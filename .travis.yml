@@ -3,9 +3,6 @@ notifications:
   email:
     - paul4hough@gmail.com
 
-install:
-  - sudo apt-get -y update
-
 before_script:
   - type python
   - python --version
