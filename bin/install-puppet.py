@@ -172,6 +172,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
 
 def main():
     '''main - script entry point'''
+    print 'PATH:',os.environ['PATH']
     global sysdo
     sysname = None
     osname = None
