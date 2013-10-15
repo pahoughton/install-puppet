@@ -5,28 +5,29 @@ import sys
 import platform as pl
 from distutils.core import setup, Command
 
-if False:
-    my_path = ['/opt/local/bin',
-               '/usr/local/bin',
-               '/usr/bin',
-               '/bin',
-               '/opt/local/sbin',
-               '/usr/local/bin',
-               '/usr/sbin',
-               '/sbin']
-    #print('Changing Path from:')
-    #for pdir in os.environ['PATH'].split(':'):
-    #    print '  '+pdir
-    #print('to:')
-    #for pdir in my_path:
-    #    print '  '+pdir    
-    os.environ['PATH'] = ':'.join(my_path)
-    print "NEW:",os.environ['PATH']
-    if os.environ.get('GEM_HOME'):
-        del os.environ['GEM_HOME']
+# my_path = ['/opt/local/bin',
+#            '/usr/local/bin',
+#            '/usr/bin',
+#            '/bin',
+#            '/opt/local/sbin',
+#            '/usr/local/bin',
+#            '/usr/sbin',
+#            '/sbin']
+# print('Changing Path from:')
+# for pdir in os.environ['PATH'].split(':'):
+#     print '  '+pdir
+#     print('to:')
 
-    if os.environ.get('GETM_PATH'):
-        del os.environ['GEM_PATH']
+# for pdir in my_path:
+#     print '  '+pdir    
+#     os.environ['PATH'] = ':'.join(my_path)
+
+# print "NEW:",os.environ['PATH']
+# if os.environ.get('GEM_HOME'):
+#     del os.environ['GEM_HOME']
+
+# if os.environ.get('GETM_PATH'):
+#     del os.environ['GEM_PATH']
 
 def try_command(cmd,expout=None):
     pout = None
