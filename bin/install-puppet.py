@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-'''install-puppet.py - install puppet
+'''install-puppet.py
+
+install puppet on Darwin (OS X), RedHat and Debian systems.
 
 ping travis
 '''
@@ -22,9 +24,14 @@ def which(filename):
     return None
 
 def real_sysdo(cmd):
+    '''real_sysdo - execute cmd and show output
+    '''
     print 'run:',' '.join(cmd)
     sout = sp.check_output(cmd).decode('utf-8')
-    print repr(sout)
+    if sout:
+        print sout
+    else:
+        print '--NO OUTPUT--'
 
 def unit_test_sysdo(cmd):
     print 'UT:',cmd
@@ -160,21 +167,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
                'bash','-l',
                '-c','bundle','install','--gemfile='+gemfile.name])
         os.remove(gemfile.name)
-        
-        # wasdir = os.getcwd()
-        # os.chdir(os.path.dirname(sys.argv[0]))
-        # if re.match(r'/bin$', os.getcwd()):
-        #     os.chdir(re.sub( r'(.*)/bin','\1',os.getcwd() ))
-        # else:
-        #     # hope for the best
-        #     os.chdir('..')
-        # print 'CWD:',os.getcwd()
-        # print 'PATH:',os.environ['PATH']
-        # sysdo(['cat','Gemfile'])
-        # sysdo(['bundle','list'])
-        # os.chdir(wasdir)
-        # sysdo(['gem','install','puppet'])
-        print 'puppet gem installed.'
+        print 'puppet gem installed for travis.'
 
 def main():
     '''main - script entry point'''

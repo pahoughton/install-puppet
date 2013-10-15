@@ -9,16 +9,11 @@ install:
 before_script:
   - type python
   - python --version
-  - type bundle
   - env
 
 script:
   - python setup.py test_unit
-  - sudo -l
-  - sudo sudo -u $USER bash -l -c env
   - sudo python setup.py test_system
 
 after_script:
   - puppet --version
-  - cat ~/.ssh/config
-  - find . -type f -ls
