@@ -12,8 +12,6 @@ before_script:
   - env
 
 script:
-  - echo -e "source 'https://rubygems.org'\ngem 'puppet'\n" >> ~/Gemfile
-  - sudo -u travis bash -l -c bundle install --gemfile=./Gemfile
   - python setup.py test_unit
   - sudo python setup.py test_system
 
