@@ -127,6 +127,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
                        mntdir]
             sysdo(umntcmd)
             if not didinstall:
+                print 'FAILED - install puppet'
                 sys.exit(1)
 
     elif sysname == 'Linux':
@@ -180,6 +181,9 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         print 'Unsupported platform:',sysname
         sys.exit( 1 )
 
+    for k,v in os.environ.iteritems():
+        print '{fk}={fv}'.format( fk=k,fv=v)
+        
     # Travis needs gems installed with bundle
     if os.environ.get('TRAVIS'):
         # travis-ci requires the bundle gem install of puppet
