@@ -34,7 +34,6 @@ def real_sysdo(cmd,expout=None):
         print "run:",' '.join(cmd)
         proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE)
         pout,perr = proc.communicate()
-        pout = pout.decode('utf-8').strip()
         pstatus = proc.returncode
     except Exception,e:
         print repr(e)
@@ -42,10 +41,9 @@ def real_sysdo(cmd,expout=None):
             pstatus = -99
     finally:
         if pout:
-            print 'stdout:',pout
+            print 'stdout:',pout.decode('utf-8','ignore').strip()
         if perr:
-            print 'stderr:',perr
-        print pout+'\n'+perr
+            print 'stderr:',perr.decode('utf-8','ignore').strip()
         if not pout and not perr:
             print '-- NO OUTPUT --'
             
