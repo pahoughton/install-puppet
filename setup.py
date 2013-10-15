@@ -34,7 +34,8 @@ def try_command(cmd,expout=None):
     perr = None
     pstatus = -99
     try:
-        print "run:",' '.join(cmd)
+        print "PATH",os.environ['PATH']
+        print "setup.py run:",' '.join(cmd)
         proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE
                         )
         pout,perr = proc.communicate()
