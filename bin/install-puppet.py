@@ -41,9 +41,11 @@ def real_sysdo(cmd,expout=None):
             pstatus = -99
     finally:
         if pout:
-            print 'stdout:',pout.encode('ascii',errors='ignore')
+            print "STDOUT:"
+            sys.stdout.write(pout)
         if perr:
-            print 'stderr:',perr.encode('ascii',errors='ignore')
+            print "STDERR:"
+            sys.stdout.write(perr)
         if not pout and not perr:
             print '-- NO OUTPUT --'
             
