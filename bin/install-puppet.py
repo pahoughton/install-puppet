@@ -148,31 +148,36 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
 
     # Travis needs gems installed with bundle
     if os.environ.get('TRAVIS'):
-        # gemfile = tempfile.NamedTemporaryFile(mode='w',delete=False)
-        # gemfile.write("source 'https://rubygems.org'\ngem 'puppet'\n")
-        # gemfile.close()
-        # sysdo(['cat',gemfile.name])
-        # sysdo(['bundle','install','--gemfile='+gemfile.name])
-        # os.remove(gemfile.name)
+        # travis-ci requires the bundle gem install of puppet
+        # because of the users environment. Otherwise the
+        # the puppet command will fail.
+        gemfile = tempfile.NamedTemporaryFile(mode='w',delete=False)
+        gemfile.write("source 'https://rubygems.org'\ngem 'puppet'\n")
+        gemfile.close()
+        sysdo(['cat',gemfile.name])
+        sysdo(['sudo',
+               '-u',os.environ['SUDO_USER'],
+               'bash','-l',
+               '-c','bundle','install','--gemfile='+gemfile.name])
+        os.remove(gemfile.name)
         
-        wasdir = os.getcwd()
-        os.chdir(os.path.dirname(sys.argv[0]))
-        if re.match(r'/bin$', os.getcwd()):
-            os.chdir(re.sub( r'(.*)/bin','\1',os.getcwd() ))
-        else:
-            # hope for the best
-            os.chdir('..')
-        print 'CWD:',os.getcwd()
-        print 'PATH:',os.environ['PATH']
-        sysdo(['cat','Gemfile'])
-        sysdo(['bundle','list'])
-        os.chdir(wasdir)
-        sysdo(['gem','install','puppet'])
+        # wasdir = os.getcwd()
+        # os.chdir(os.path.dirname(sys.argv[0]))
+        # if re.match(r'/bin$', os.getcwd()):
+        #     os.chdir(re.sub( r'(.*)/bin','\1',os.getcwd() ))
+        # else:
+        #     # hope for the best
+        #     os.chdir('..')
+        # print 'CWD:',os.getcwd()
+        # print 'PATH:',os.environ['PATH']
+        # sysdo(['cat','Gemfile'])
+        # sysdo(['bundle','list'])
+        # os.chdir(wasdir)
+        # sysdo(['gem','install','puppet'])
         print 'puppet gem installed.'
 
 def main():
     '''main - script entry point'''
-    print 'PATH:',os.environ['PATH']
     global sysdo
     sysname = None
     osname = None

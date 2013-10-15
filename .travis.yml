@@ -16,8 +16,7 @@ script:
   - python setup.py test_unit
   - sudo -l
   - sudo sudo -u $USER bash -l -c env
-  - sudo -E env
-  - sudo -E python setup.py test_system
+  - sudo python setup.py test_system
 
 after_script:
   - puppet --version
