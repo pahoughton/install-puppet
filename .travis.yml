@@ -10,7 +10,6 @@ before_script:
   - type python
   - python --version
   - type bundle
-  - bundle list
   - env
 
 script:
@@ -21,5 +20,6 @@ after_script:
   - bundle install
   - which puppet
   - puppet --version
+  - bundle list
   - cat ~/.ssh/config
   - find . -type f -ls
