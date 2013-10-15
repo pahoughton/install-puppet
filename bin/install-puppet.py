@@ -52,13 +52,13 @@ def real_sysdo(cmd,expout=None):
     if pstatus != 0:
         msg = "FAILED: {fs} - cmd: '{fc}'".format(fs=pstatus,
                                                   fc=' '.join(cmd))
-        raise SystemExit(msg)
+        raise Exception(msg)
 
     if expout and expout not in pout:
         msg = "FAILED: {fs} - exp: '{fe}' in '{fo}".format(fs=pstatus,
                                                            fe=expout,
                                                            fo=pout)
-        raise SystemExit(msg)
+        raise Exception(msg)
 
 def unit_test_sysdo(cmd):
     print 'UT:',cmd

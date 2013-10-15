@@ -14,33 +14,44 @@ import platform as pl
 from distutils.core import setup, Command
 
 def try_command(cmd,expout=None):
+    '''try_command - execute system command and show output
+    cmd - list passed to Popen
+    expout - expected output
+    if expout is not None, check output contains expout
+    '''
     pout = None
     perr = None
     pstatus = -99
     try:
         print "PATH",os.environ['PATH']
-        print "setup.py run:",' '.join(cmd)
+        print "run:",' '.join(cmd)
         proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE)
         pout,perr = proc.communicate()
-        pout = pout.decode('utf-8').strip()
         pstatus = proc.returncode
     except Exception,e:
         print repr(e)
         if pstatus == None:
             pstatus = -99
     finally:
-        print pout+'\n'+perr
-
+        if pout:
+            print "STDOUT:"
+            sys.stdout.write(pout)
+        if perr:
+            print "STDERR:"
+            sys.stdout.write(perr)
+        if not pout and not perr:
+            print '-- NO OUTPUT --'
+            
     if pstatus != 0:
         msg = "FAILED: {fs} - cmd: '{fc}'".format(fs=pstatus,
                                                   fc=' '.join(cmd))
-        raise SystemExit(msg)
+        raise Exception(msg)
 
     if expout and expout not in pout:
         msg = "FAILED: {fs} - exp: '{fe}' in '{fo}".format(fs=pstatus,
                                                            fe=expout,
                                                            fo=pout)
-        raise SystemExit(msg)
+        raise Exception(msg)
 
 
 class test_unit(Command):
