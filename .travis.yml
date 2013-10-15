@@ -15,7 +15,7 @@ before_script:
 script:
   - python setup.py test_unit
   - sudo -l
-  - sudo sudo -u $USER env
+  - sudo sudo -u $USER bash -l env
   - sudo -E env
   - sudo -E python setup.py test_system
 
