@@ -14,13 +14,10 @@ before_script:
 
 script:
   - python setup.py test_unit
-  - sudo env
-  - sudo python setup.py test_system
+  - sudo -E env
+  - sudo -E python setup.py test_system
 
 after_script:
-  - bundle install
-  - which puppet
   - puppet --version
-  - bundle list
   - cat ~/.ssh/config
   - find . -type f -ls
