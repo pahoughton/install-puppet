@@ -1,33 +1,17 @@
 #!/usr/bin/env python
+'''
+setup.py help for commands.
+
+see distutils for additional information
+
+Copyright (c) 2013 Paul Houghton <paul4hough@gmail.com>
+
+'''
 import subprocess as sp
 import os
 import sys
 import platform as pl
 from distutils.core import setup, Command
-
-# my_path = ['/opt/local/bin',
-#            '/usr/local/bin',
-#            '/usr/bin',
-#            '/bin',
-#            '/opt/local/sbin',
-#            '/usr/local/bin',
-#            '/usr/sbin',
-#            '/sbin']
-# print('Changing Path from:')
-# for pdir in os.environ['PATH'].split(':'):
-#     print '  '+pdir
-#     print('to:')
-
-# for pdir in my_path:
-#     print '  '+pdir    
-#     os.environ['PATH'] = ':'.join(my_path)
-
-# print "NEW:",os.environ['PATH']
-# if os.environ.get('GEM_HOME'):
-#     del os.environ['GEM_HOME']
-
-# if os.environ.get('GETM_PATH'):
-#     del os.environ['GEM_PATH']
 
 def try_command(cmd,expout=None):
     pout = None
@@ -36,7 +20,7 @@ def try_command(cmd,expout=None):
     try:
         print "PATH",os.environ['PATH']
         print "setup.py run:",' '.join(cmd)
-        proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE,shell=True)
+        proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE)
         pout,perr = proc.communicate()
         pout = pout.decode('utf-8').strip()
         pstatus = proc.returncode
@@ -92,7 +76,8 @@ class test_system(Command):
         pass
 
     def run(self):
-        try_command(['echo','$PATH'])
+        print sp.check_output(['env'])
+        try_command(['env'])
         try_command(['sudo',
                      'python',
                      'bin/install-puppet.py'])
