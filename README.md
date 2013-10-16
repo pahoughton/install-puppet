@@ -1,7 +1,8 @@
 ## install-puppet
-Last: [![Test Build Status](https://travis-ci.org/pahoughton/install-puppet.png)](https://travis-ci.org/pahoughton/install-puppet)
-Master: [![Test Build Status](https://travis-ci.org/pahoughton/install-puppet.png?branch=master)](https://travis-ci.org/pahoughton/install-puppet)
-Devel: [![Test Build Status](https://travis-ci.org/pahoughton/install-puppet.png?branch=devel)](https://travis-ci.org/pahoughton/install-puppet)
+Last: [![Last Build Status](https://travis-ci.org/pahoughton/install-puppet.png)](https://travis-ci.org/pahoughton/install-puppet/branches)
+1.0.1: [![Release Build Status](https://travis-ci.org/pahoughton/install-puppet.png?branch=1.0.1)](https://travis-ci.org/pahoughton/install-puppet/branches)
+Test-OSX: [![Test-OSX Build Status](https://travis-ci.org/pahoughton/install-puppet.png?branch=test-osx)](https://travis-ci.org/pahoughton/install-puppet/branches)
+Devel: [![Devel Build Status](https://travis-ci.org/pahoughton/install-puppet.png?branch=devel)](https://travis-ci.org/pahoughton/install-puppet/branches)
 
 Simple python script to install puppet tested on RedHat, Debian and Darwin
 
