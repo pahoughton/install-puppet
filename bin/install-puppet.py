@@ -194,7 +194,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         # because of the users environment. Otherwise the
         # the puppet command will fail.
         bndl_cmd = None
-        gemfile = tempfile.NamedTemporaryFilex(mode='w',delete=False)
+        gemfile = tempfile.NamedTemporaryFile(mode='w',delete=False)
         if os.getuid() == 0:
             # need to install as normal user
             if os.environ.get('SUDO_USER'):
