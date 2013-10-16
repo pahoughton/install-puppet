@@ -228,6 +228,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
 #         sysdo(['bundle','list'])
 #         os.chdir(wasdir)
 #         sysdo(['cat',gemfile.name])
+        sysdo(['gem','install','puppet'])
         print 'puppet gem installed for travis.'
 
 def main():
