@@ -198,8 +198,10 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         if os.getuid() == 0:
             # need to install as normal user
             if os.environ.get('SUDO_USER'):
-               bndl_cmd = ['su','-',os.environ['SUDO_USER'],'-c',
-                           'bundle install --gemfile='+gemfile.name]
+                sysdo(['su','-',os.environ['SUDO_USER'],
+                       'gem','install','puppet'])
+                bndl_cmd = ['su','-',os.environ['SUDO_USER'],'-c',
+                            'bundle install --gemfile='+gemfile.name]
             else:
                 gemfile.close()
                 os.remove(gemfile.name)
@@ -229,6 +231,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
 #         os.chdir(wasdir)
 #         sysdo(['cat',gemfile.name])
         sysdo(['gem','install','puppet'])
+        
         print 'puppet gem installed for travis.'
 
 def main():

@@ -91,6 +91,11 @@ class test_system(Command):
         try_command(['python',
                      'bin/install-puppet.py'])
         try_command(['puppet','--version'],'3.3')
+        if os.environ.get('SUDO_USER'):
+            try_command(['su','-',os.environ['SUDO_USER'],
+                         'puppet','--version'],'3.3')
+        else:
+            try_command(['sudo','-n','puppet','--version'],'3.3')        
         try_command(['puppet',
                      'apply',
                      '-e',
