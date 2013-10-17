@@ -199,7 +199,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
             # need to install as normal user
             if os.environ.get('SUDO_USER'):
                 sysdo(['su','-',os.environ['SUDO_USER'],
-                       'gem','install','puppet'])
+                       '-c','gem install puppet'])
                 bndl_cmd = ['su','-',os.environ['SUDO_USER'],'-c',
                             'bundle install --gemfile='+gemfile.name]
             else:
