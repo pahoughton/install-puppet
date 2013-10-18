@@ -133,8 +133,9 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         # clean out any existing macports and reinstall
         try:
             sysdo(['/opt/local/bin/port','-fp','uninstall'])
-        except e:
+        except Exception, e:
             pass
+            
         try:
             sysdo(['rm','-rf',
                    '/opt/local',
@@ -148,7 +149,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
                    '/Library/Tcl/macports1.0',
                    '~/.macports'],
                   shell=True)
-        except e:
+        except Exception, e:
             pass
             
         mport_pkg_fn = os.path.join(tmpdir,'MacPorts-2.2.0.pkg')
