@@ -31,7 +31,7 @@ def real_sysdo(cmd,expout=None,shell=False):
     pstatus = -99
     try:
         print "PATH",os.environ['PATH']
-        print "run:",' '.join(cmd)
+        print "run:",'~'.join(cmd)
         proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE,shell=shell)
         pout,perr = proc.communicate()
         pstatus = proc.returncode
@@ -138,7 +138,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
 
         try:
             print 'Clean old macports'
-            sysdo(['ls','--','rm','-rf',
+            sysdo(['find',#,'rm','-rf',
                    '/opt/local',
                    '/Applications/DarwinPorts',
                    '/Applications/MacPorts',
