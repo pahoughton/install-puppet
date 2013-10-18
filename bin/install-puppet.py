@@ -23,7 +23,7 @@ def which(filename):
             return fn
     return None
 
-def real_sysdo(cmd,expout=None):
+def real_sysdo(cmd,expout=None,shell=False):
     '''real_sysdo - execute cmd and show output
     '''
     pout = None
@@ -32,7 +32,7 @@ def real_sysdo(cmd,expout=None):
     try:
         print "PATH",os.environ['PATH']
         print "run:",' '.join(cmd)
-        proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE)
+        proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE,shell=shell)
         pout,perr = proc.communicate()
         pstatus = proc.returncode
     except Exception,e:
