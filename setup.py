@@ -41,7 +41,7 @@ def try_command(cmd,expout=None):
             sys.stdout.write(perr)
         if not pout and not perr:
             print '-- NO OUTPUT --'
-            
+ 
     if pstatus != 0:
         msg = "FAILED: {fs} - cmd: '{fc}'".format(fs=pstatus,
                                                   fc=' '.join(cmd))
