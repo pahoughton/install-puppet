@@ -135,7 +135,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
             sysdo(['/opt/local/bin/port','-fp','uninstall'])
         except Exception, e:
             pass
-            
+
         try:
             sysdo(['rm','-rf',
                    '/opt/local',
