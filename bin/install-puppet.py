@@ -129,8 +129,28 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
             if not didinstall:
                 print 'FAILED - install puppet'
                 sys.exit(1)
-        # install macports
-        #
+
+        # clean out any existing macports and reinstall
+        try:
+            sysdo(['/opt/local/bin/port','-fp','uninstall'])
+        execpt e:
+            pass
+        try:
+            sysdo(['rm','-rf',
+                   '/opt/local',
+                   '/Applications/DarwinPorts',
+                   '/Applications/MacPorts',
+                   '/Library/LaunchDaemons/org.macports.*',
+                   '/Library/Receipts/DarwinPorts*.pkg',
+                   '/Library/Receipts/MacPorts*.pkg',
+                   '/Library/StartupItems/DarwinPortsStartup',
+                   '/Library/Tcl/darwinports1.0',
+                   '/Library/Tcl/macports1.0',
+                   '~/.macports'],
+                  shell=True)
+        except e:
+            pass
+            
         mport_pkg_fn = os.path.join(tmpdir,'MacPorts-2.2.0.pkg')
         urllib.urlretrieve('https://distfiles.macports.org/MacPorts/MacPorts-2.2.0-10.8-MountainLion.pkg',
                            mport_pkg_fn)
