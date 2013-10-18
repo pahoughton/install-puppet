@@ -138,7 +138,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
 
         try:
             print 'Clean old macports'
-            sysdo(['rm','-rf',
+            sysdo(['ls','--','rm','-rf',
                    '/opt/local',
                    '/Applications/DarwinPorts',
                    '/Applications/MacPorts',
