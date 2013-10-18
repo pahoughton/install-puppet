@@ -188,7 +188,6 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
     # AND does NOT set the TRAVIS environment variable when
     # sudo is used :( - hack workarounds
     if os.path.isfile( os.environ['HOME']+'/.travis_ci_environment.yml' ):
-        os.environ.get('SUDO_USER') == 'travis'):
         # travis-ci requires the bundle gem install of puppet
         # because of the users environment. Otherwise the
         # the puppet command will fail.
