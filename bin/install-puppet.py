@@ -186,10 +186,9 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         
     # Travis needs gems installed with bundle
     # AND does NOT set the TRAVIS environment variable when
-    # sudo is used :( - hack workaround
+    # sudo is used :( - hack workarounds
     if (os.environ.get('TRAVIS') or
-        (os.environ.get('MACOSX_DEPLOYMENT_TARGET') and
-         os.environ.get('SUDO_USER') == 'travis')):
+        os.environ.get('SUDO_USER') == 'travis'):
         # travis-ci requires the bundle gem install of puppet
         # because of the users environment. Otherwise the
         # the puppet command will fail.

@@ -6,6 +6,7 @@ notifications:
 before_script:
   - type python
   - python --version
+  - ls -al ~
   - env
 
 script:
