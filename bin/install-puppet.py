@@ -138,7 +138,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         if not install_osx_package(mport_pkg_fn):
             raise Exception('Install macports failed')
 
-        sysdo(['port','-v','selfupdate'])
+        sysdo(['/opt/local/bin/port','-v','selfupdate'])
         
     elif sysname == 'Linux':
         yum_platforms = ['fedora','centos','redhat']
