@@ -133,7 +133,7 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         # clean out any existing macports and reinstall
         try:
             sysdo(['/opt/local/bin/port','-fp','uninstall'])
-        execpt e:
+        except e:
             pass
         try:
             sysdo(['rm','-rf',
