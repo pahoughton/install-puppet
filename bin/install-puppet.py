@@ -26,15 +26,22 @@ def which(filename):
 def real_sysdo(cmd,expout=None,shell=False):
     '''real_sysdo - execute cmd and show output
     '''
+    pcmd = None
     pout = None
     perr = None
     pstatus = -99
+    if shell:
+        pcmd = ' '.join(cmd)
+    else:
+        pcmd = cmd
+        
     try:
         print "PATH",os.environ['PATH']
-        print "run:",'~'.join(cmd)
-        proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE,shell=shell)
+        print "run:",'~'.join(pcmd)
+        proc = sp.Popen(pcmd, stdout=sp.PIPE,stderr=sp.PIPE,shell=shell)
         pout,perr = proc.communicate()
         pstatus = proc.returncode
+        
     except Exception,e:
         print repr(e)
         if pstatus == None:
@@ -138,7 +145,19 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
 
         try:
             print 'Clean old macports'
-            sysdo(['find',#,'rm','-rf',
+            sysdo(['ls','-l',
+                   '/opt/local',
+                   '/Applications/DarwinPorts',
+                   '/Applications/MacPorts',
+                   '/Library/LaunchDaemons/org.macports.*',
+                   '/Library/Receipts/DarwinPorts*.pkg',
+                   '/Library/Receipts/MacPorts*.pkg',
+                   '/Library/StartupItems/DarwinPortsStartup',
+                   '/Library/Tcl/darwinports1.0',
+                   '/Library/Tcl/macports1.0',
+                   '~/.macports'],
+                  shell=True)
+            sysdo(['rm','-rf',
                    '/opt/local',
                    '/Applications/DarwinPorts',
                    '/Applications/MacPorts',
