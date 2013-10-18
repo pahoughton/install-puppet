@@ -134,9 +134,10 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         try:
             sysdo(['/opt/local/bin/port','-fp','uninstall'])
         except Exception, e:
-            pass
+            print 'No ports found'
 
         try:
+            print 'Clean old macports'
             sysdo(['rm','-rf',
                    '/opt/local',
                    '/Applications/DarwinPorts',
@@ -150,8 +151,8 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
                    '~/.macports'],
                   shell=True)
         except Exception, e:
-            pass
-            
+            raise e
+
         mport_pkg_fn = os.path.join(tmpdir,'MacPorts-2.2.0.pkg')
         urllib.urlretrieve('https://distfiles.macports.org/MacPorts/MacPorts-2.2.0-10.8-MountainLion.pkg',
                            mport_pkg_fn)
