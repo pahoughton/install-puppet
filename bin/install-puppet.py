@@ -23,18 +23,25 @@ def which(filename):
             return fn
     return None
 
-def real_sysdo(cmd,expout=None):
+def real_sysdo(cmd,expout=None,shell=False):
     '''real_sysdo - execute cmd and show output
     '''
+    pcmd = None
     pout = None
     perr = None
     pstatus = -99
+    if shell:
+        pcmd = ' '.join(cmd)
+    else:
+        pcmd = cmd
+        
     try:
         print "PATH",os.environ['PATH']
-        print "run:",' '.join(cmd)
-        proc = sp.Popen(cmd, stdout=sp.PIPE,stderr=sp.PIPE)
+        print "run:",'~'.join(pcmd)
+        proc = sp.Popen(pcmd, stdout=sp.PIPE,stderr=sp.PIPE,shell=shell)
         pout,perr = proc.communicate()
         pstatus = proc.returncode
+        
     except Exception,e:
         print repr(e)
         if pstatus == None:
@@ -129,8 +136,30 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
             if not didinstall:
                 print 'FAILED - install puppet'
                 sys.exit(1)
-        # install macports
-        #
+
+        # clean out any existing macports and reinstall
+        try:
+            sysdo(['/opt/local/bin/port','-fp','uninstall'])
+        except Exception, e:
+            print 'No ports found'
+
+        try:
+            print 'Clean old macports'
+            sysdo(['rm','-rf',
+                   '/opt/local',
+                   '/Applications/DarwinPorts',
+                   '/Applications/MacPorts',
+                   '/Library/LaunchDaemons/org.macports.*',
+                   '/Library/Receipts/DarwinPorts*.pkg',
+                   '/Library/Receipts/MacPorts*.pkg',
+                   '/Library/StartupItems/DarwinPortsStartup',
+                   '/Library/Tcl/darwinports1.0',
+                   '/Library/Tcl/macports1.0',
+                   '~/.macports'],
+                  shell=True)
+        except Exception, e:
+            raise e
+
         mport_pkg_fn = os.path.join(tmpdir,'MacPorts-2.2.0.pkg')
         urllib.urlretrieve('https://distfiles.macports.org/MacPorts/MacPorts-2.2.0-10.8-MountainLion.pkg',
                            mport_pkg_fn)
