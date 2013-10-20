@@ -17,3 +17,5 @@ after_script:
   - puppet --version
   - puppet config print
   - facter
+  - sudo puppet config print
+  - sudo facter
