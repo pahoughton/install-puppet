@@ -250,21 +250,6 @@ def install_puppet(sysname,osname=None,osver=None,osvername=None):
         sysdo(['ls','-l',gemfile.name])
         sysdo(bndl_cmd)
         os.remove(gemfile.name)
-#         wasdir = os.getcwd()
-#         os.chdir(os.path.dirname(sys.argv[0]))
-#         if re.match(r'/bin$', os.getcwd()):
-#             os.chdir(re.sub( r'(.*)/bin','\1',os.getcwd() ))
-#         else:
-#             # hope for the best
-#             os.chdir('..')
-#         print 'CWD:',os.getcwd()
-#         gemfile = open('Gemfile','w')
-#         gemfile.write("source 'https://rubygems.org'\ngem 'puppet'\n")
-#         gemfile.close()
-#         sysdo(['cat','Gemfile'])
-#         sysdo(['bundle','list'])
-#         os.chdir(wasdir)
-#         sysdo(['cat',gemfile.name])
         sysdo(['gem','install','puppet'])
         
         print 'puppet gem installed for travis.'
@@ -304,6 +289,8 @@ def main():
             install_puppet(sysname,osname,osver,osvername)
         
     print( 'Puppet installed as ',which('puppet'),'enjoy ;)')
+    sysdo(['puppet','config','print'])
+    sysdo(['facter'])
 
 if __name__ == '__main__':
     main()
